@@ -140,6 +140,24 @@ export const refreshToken = async (req,res) => {
   }
 }
 
-// export const getProfile = async (req,res) => {
+export const getProfile = async (req,res) => {
+  try {
+    const user = req.user;
+    if(!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-// }
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      }
+    })
+
+  } catch (error) {
+    console.error("Error in getProfile:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+}

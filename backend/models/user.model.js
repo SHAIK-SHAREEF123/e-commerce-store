@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
+import {Product} from "./product.model.js"
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema(
         },
         product: {
           type: mongoose.Schema.Types.ObjectId,
-          // ref: Product,
+          ref: Product,
         },
       },
     ],
