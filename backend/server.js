@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 
 import authRoutes from "./routes/auth.route.js"
+import productRoutes from "./routes/product.route.js"
 
 import {connectDB} from "./lib/db.js"; 
 
@@ -20,11 +21,9 @@ app.use(cookieParser());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(PORT,() => {
     console.log("Server is running at http://localhost:" + PORT);
     connectDB();
 })
-
-
-// b09Gm5sn5JHovKZ7
