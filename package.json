@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "dev" : "nodemon backend/server.js",
-    "start" : "node backend/server.js"
+    "dev": "nodemon backend/server.js",
+    "start": "node backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.2",
+    "react-hot-toast": "^2.5.2",
     "stripe": "^18.3.0"
   },
   "devDependencies": {
