@@ -2,6 +2,7 @@ import { Product } from "../models/product.model.js";
 
 export const getCartProducts = async(req,res) => {
     try {
+        // console.log(req.user);
         const products = await Product.find({_id: { $in: req.user.cartItems }}); //finding products by taking id's of cartItems
 
         //add quantity for each product
@@ -62,7 +63,7 @@ export const updateQuantity = async(req,res) => {
         const{id:productId} = req.params;
         const {quantity} = req.body;
         const user = req.user;
-        const exisitingItem = user.cartItems.find((item) => item.id === productId);
+        const existingItem = user.cartItems.find((item) => item.id === productId);
 
         if(existingItem) {
             if(quantity == 0) {

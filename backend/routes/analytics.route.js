@@ -14,7 +14,7 @@ router.get("/",protectRoute,adminRoute, async (req, res) => {
 
         const dailySalesData = await getDailySalesData(startDate,endDate);
 
-        res.json(analyticsData,dailySalesData);
+        res.json({analyticsData,dailySalesData});
     } catch (error) {
         
     }
