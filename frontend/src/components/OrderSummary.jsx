@@ -8,9 +8,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "../lib/axios";
 
 
-const stripePromise = loadStripe(
-	"pk_test_51RpQ1DEIZj4vCt5g44xjE0udszD38sWKKQVVjNaBYq39IYYPV3kINE4DtLO9oU7h3gYlv9Sm4zpnwZGXPxCIghpK00LyZBnV5D"
-);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const OrderSummary = () => {
 	const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
