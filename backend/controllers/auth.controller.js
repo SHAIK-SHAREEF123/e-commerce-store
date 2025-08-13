@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
-import {redis} from "../lib/redis.js"
+// import {redis} from "../lib/redis.js"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -13,9 +13,9 @@ const generateTokens = (userId) => {
   return {accessToken, refreshToken}
 }
 
-const storeRefreshToken = async(userId, refreshToken) => {
-  await redis.set(`refresh_token:${userId}`, refreshToken, "EX",7*24*60*60); // 7 days
-}
+// const storeRefreshToken = async(userId, refreshToken) => {
+//   await redis.set(`refresh_token:${userId}`, refreshToken, "EX",7*24*60*60); // 7 days
+// }
 
 const setCookies = (res,accessToken,refreshToken) => {
   res.cookie("accessToken",accessToken, {
@@ -45,7 +45,7 @@ export const signup = async (req, res) => {
 
     //authenticate 
     const {accessToken, refreshToken} = generateTokens(user._id);
-    await storeRefreshToken(user._id, refreshToken);
+    // await storeRefreshToken(user._id, refreshToken);
 
     setCookies(res,accessToken,refreshToken);
 
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
     if(user && user.comparePassword(password)) {
       // console.log("login2");
       const {accessToken, refreshToken} = generateTokens(user._id);
-      await storeRefreshToken(user._id, refreshToken);
+      // await storeRefreshToken(user._id, refreshToken);
 
       setCookies(res,accessToken,refreshToken);
 
@@ -95,7 +95,7 @@ export const logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if(refreshToken) {
       const decoded = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET);
-      await redis.del(`refresh_token:${decoded.userId}`);
+      // await redis.del(`refresh_token:${decoded.userId}`);
     }
 
     res.clearCookie("accessToken");
@@ -118,7 +118,7 @@ export const refreshToken = async (req,res) => {
     }
 
     const decoded = jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET);
-    const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
+    // const storedToken = await redis.get(`refresh_token:${decoded.userId}`);
 
     if(storedToken!==refreshToken) {
       return res.status(401).json({ message : "Invalid refresh token" });
