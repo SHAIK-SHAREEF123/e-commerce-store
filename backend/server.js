@@ -30,7 +30,7 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 // ✅ Serve frontend in production
-const frontendPath = path.join(__dirname, "frontend", "dist");
+const frontendPath = path.join(__dirname, "..", "frontend", "dist");
 
 app.use(express.static(frontendPath));
 
