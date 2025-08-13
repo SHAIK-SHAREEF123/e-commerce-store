@@ -18,6 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
+// Middlewares
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
@@ -30,15 +31,18 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 // ✅ Serve frontend in production
-const frontendPath = path.join(__dirname, "..", "frontend", "dist");
+const frontendPath = path.join(__dirname, "../frontend/dist"); // Vite build folder
+// const frontendPath = path.join(__dirname, "../frontend/build"); // CRA build folder
 
 app.use(express.static(frontendPath));
 
-app.get("*", (req, res) => {
+// Serve index.html for any route not starting with /api
+app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at ${PORT}`);
-  connectDB();
+// Start server
+app.listen(PORT, async () => {
+  console.log(`Server is running in production mode at PORT ${PORT}`);
+  await connectDB();
 });
